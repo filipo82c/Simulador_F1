@@ -723,88 +723,112 @@ public class MainFrame extends JFrame {
 
                         leaderHeader.setText("Carrera en Vivo - Vuelta " + currentLap + " de " + totalLaps + " [Clima: " + clima + "]");
 
-                        // Simular tiempos de la vuelta actual
+                        // Simular tiempos de la vuelta actual usando hilos individuales en paralelo para cada piloto
+                        List<Thread> threads = new ArrayList<>();
                         for (DriverState d : grid) {
                             if (d.retirado) continue;
 
-                            // Habilidad y coche
-                            double lapTime = baseTime;
-                            
-                            // Habilidad piloto
-                            if (d.nombre.equals("Max Verstappen")) lapTime -= 0.5;
-                            else if (d.nombre.equals("Lewis Hamilton")) lapTime -= 0.4;
-                            else if (d.nombre.equals("Charles Leclerc")) lapTime -= 0.4;
-                            else if (d.nombre.equals("Lando Norris")) lapTime -= 0.3;
-                            else if (d.nombre.equals("Fernando Alonso")) lapTime -= 0.3;
+                            Thread t = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Habilidad y coche
+                                    double lapTime = baseTime;
+                                    
+                                    // Habilidad piloto
+                                    if (d.nombre.equals("Max Verstappen")) lapTime -= 0.5;
+                                    else if (d.nombre.equals("Lewis Hamilton")) lapTime -= 0.4;
+                                    else if (d.nombre.equals("Charles Leclerc")) lapTime -= 0.4;
+                                    else if (d.nombre.equals("Lando Norris")) lapTime -= 0.3;
+                                    else if (d.nombre.equals("Fernando Alonso")) lapTime -= 0.3;
 
-                            // Escudería
-                            String team = d.equipo;
-                            if (team.contains("Red Bull")) lapTime -= 0.4;
-                            else if (team.contains("Mercedes")) lapTime -= 0.2;
-                            else if (team.contains("Ferrari")) lapTime -= 0.2;
-                            else if (team.contains("McLaren")) lapTime -= 0.1;
-                            else if (team.contains("Alpine")) lapTime += 0.2;
-                            else if (team.contains("Alfa Romeo")) lapTime += 0.3;
-                            else if (team.contains("Haas")) lapTime += 0.4;
-                            else if (team.contains("AlphaTauri")) lapTime += 0.4;
-                            else if (team.contains("Williams")) lapTime += 0.5;
+                                    // Escudería
+                                    String team = d.equipo;
+                                    if (team.contains("Red Bull")) lapTime -= 0.4;
+                                    else if (team.contains("Mercedes")) lapTime -= 0.2;
+                                    else if (team.contains("Ferrari")) lapTime -= 0.2;
+                                    else if (team.contains("McLaren")) lapTime -= 0.1;
+                                    else if (team.contains("Alpine")) lapTime += 0.2;
+                                    else if (team.contains("Alfa Romeo")) lapTime += 0.3;
+                                    else if (team.contains("Haas")) lapTime += 0.4;
+                                    else if (team.contains("AlphaTauri")) lapTime += 0.4;
+                                    else if (team.contains("Williams")) lapTime += 0.5;
 
-                            // Efecto de reglajes del usuario para el piloto del usuario
-                            if (d.nombre.equals(selectedPilotName)) {
-                                // Aero
-                                if (selectedCircuitName.contains("Mónaco")) {
-                                    if (selectedAero.equals("Alta")) lapTime -= 0.6;
-                                    else if (selectedAero.equals("Baja")) lapTime += 0.8;
-                                } else {
-                                    if (selectedAero.equals("Baja")) lapTime -= 0.5;
-                                    else if (selectedAero.equals("Alta")) lapTime += 0.6;
+                                    // Efecto de reglajes del usuario para el piloto del usuario
+                                    if (d.nombre.equals(selectedPilotName)) {
+                                        // Aero
+                                        if (selectedCircuitName.contains("Mónaco")) {
+                                            if (selectedAero.equals("Alta")) lapTime -= 0.6;
+                                            else if (selectedAero.equals("Baja")) lapTime += 0.8;
+                                        } else {
+                                            if (selectedAero.equals("Baja")) lapTime -= 0.5;
+                                            else if (selectedAero.equals("Alta")) lapTime += 0.6;
+                                        }
+                                        // Neumáticos
+                                        if (clima.equals("Seco")) {
+                                            if (selectedTires.equals("Alta")) lapTime -= 0.2;
+                                        } else {
+                                            if (selectedTires.equals("Baja")) lapTime -= 0.3;
+                                            else if (selectedTires.equals("Alta")) lapTime += 0.6;
+                                        }
+                                        // Conducción
+                                        if (selectedDrive.equals("Agresiva")) lapTime -= 0.4;
+                                        else if (selectedDrive.equals("Ahorro de combustible")) lapTime += 0.6;
+                                        // Combustible
+                                        if (selectedFuel.equals("Agresiva")) lapTime -= 0.3;
+                                        else if (selectedFuel.equals("Ahorro")) lapTime += 0.5;
+                                    } else {
+                                        // Reglajes aleatorios simulados para rivales
+                                        double randReglaje = Math.random();
+                                        if (randReglaje < 0.3) lapTime -= 0.3;
+                                        else if (randReglaje < 0.6) lapTime += 0.2;
+                                    }
+
+                                    // Multiplicador de clima
+                                    if (clima.equals("Lluvioso")) {
+                                        lapTime += 7.0 + Math.random() * 2.0;
+                                    } else if (clima.equals("Extremo")) {
+                                        lapTime += 14.0 + Math.random() * 3.0;
+                                    }
+
+                                    // Varianza
+                                    lapTime += (Math.random() * 0.8) - 0.3;
+
+                                    // Probabilidad de retiro (DNF)
+                                    double dnfChance = 0.005; // 0.5% base
+                                    if (d.nombre.equals(selectedPilotName) && selectedDrive.equals("Agresiva")) {
+                                        dnfChance = 0.02; // 2% si conduce agresivo
+                                    } else if (Math.random() < 0.1) {
+                                        // Algunos rivales conducen agresivo aleatoriamente
+                                        dnfChance = 0.015;
+                                    }
+
+                                    if (Math.random() < dnfChance) {
+                                        d.retirado = true;
+                                        String[] causas = {"Accidente", "Fallo mecánico", "Motor roto", "Pinchazo", "Trompo"};
+                                        d.causaRetiro = causas[(int) (Math.random() * causas.length)];
+                                        
+                                        // Actualizar GUI de forma segura en el Event Dispatch Thread (EDT)
+                                        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                eventLogLabel.setText("¡Retirado! " + d.nombre + " fuera de carrera por: " + d.causaRetiro);
+                                            }
+                                        });
+                                    } else {
+                                        d.tiempoAcumulado += lapTime;
+                                    }
                                 }
-                                // Neumáticos
-                                if (clima.equals("Seco")) {
-                                    if (selectedTires.equals("Alta")) lapTime -= 0.2;
-                                } else {
-                                    if (selectedTires.equals("Baja")) lapTime -= 0.3;
-                                    else if (selectedTires.equals("Alta")) lapTime += 0.6;
-                                }
-                                // Conducción
-                                if (selectedDrive.equals("Agresiva")) lapTime -= 0.4;
-                                else if (selectedDrive.equals("Ahorro de combustible")) lapTime += 0.6;
-                                // Combustible
-                                if (selectedFuel.equals("Agresiva")) lapTime -= 0.3;
-                                else if (selectedFuel.equals("Ahorro")) lapTime += 0.5;
-                            } else {
-                                // Reglajes aleatorios simulados para rivales
-                                double randReglaje = Math.random();
-                                if (randReglaje < 0.3) lapTime -= 0.3;
-                                else if (randReglaje < 0.6) lapTime += 0.2;
-                            }
+                            });
+                            threads.add(t);
+                            t.start();
+                        }
 
-                            // Multiplicador de clima
-                            if (clima.equals("Lluvioso")) {
-                                lapTime += 7.0 + Math.random() * 2.0;
-                            } else if (clima.equals("Extremo")) {
-                                lapTime += 14.0 + Math.random() * 3.0;
-                            }
-
-                            // Varianza
-                            lapTime += (Math.random() * 0.8) - 0.3;
-
-                            // Probabilidad de retiro (DNF)
-                            double dnfChance = 0.005; // 0.5% base
-                            if (d.nombre.equals(selectedPilotName) && selectedDrive.equals("Agresiva")) {
-                                dnfChance = 0.02; // 2% si conduce agresivo
-                            } else if (Math.random() < 0.1) {
-                                // Algunos rivales conducen agresivo aleatoriamente
-                                dnfChance = 0.015;
-                            }
-
-                            if (Math.random() < dnfChance) {
-                                d.retirado = true;
-                                String[] causas = {"Accidente", "Fallo mecánico", "Motor roto", "Pinchazo", "Trompo"};
-                                d.causaRetiro = causas[(int) (Math.random() * causas.length)];
-                                eventLogLabel.setText("¡Retirado! " + d.nombre + " fuera de carrera por: " + d.causaRetiro);
-                            } else {
-                                d.tiempoAcumulado += lapTime;
+                        // Sincronización: Esperar a que terminen los cálculos de todos los pilotos para esta vuelta
+                        for (Thread t : threads) {
+                            try {
+                                t.join();
+                            } catch (InterruptedException ex) {
+                                ex.printStackTrace();
                             }
                         }
 
