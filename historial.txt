@@ -1,0 +1,48 @@
+Carrera en Circuito de Mónaco - 50 Vueltas - Clima: Seco
+Reglajes de George Russell: Aero=Baja, Neum=Baja, Conduccion=Normal, Combustible=Balanceada
+Resultados Finales:
+  1. Charles Leclerc (Ferrari) - 59:08.407
+  2. Lando Norris (McLaren) - 59:14.141
+  3. Sergio Pérez (Red Bull Racing) - 59:19.625
+  4. Fernando Alonso (Aston Martin) - 59:24.699
+  5. Oscar Piastri (McLaren) - 59:34.389
+  6. Lance Stroll (Aston Martin) - 59:39.911
+  7. Zhou Guanyu (Alfa Romeo) - 59:53.640
+  8. Kevin Magnussen (Haas) - 59:56.337
+  9. Nico Hülkenberg (Haas) - 59:56.547
+  10. Valtteri Bottas (Alfa Romeo) - 59:58.751
+  11. Alexander Albon (Williams) - 59:59.473
+  12. Daniel Ricciardo (AlphaTauri) - 60:00.333
+  13. Yuki Tsunoda (AlphaTauri) - 60:00.380
+  14. Logan Sargeant (Williams) - 60:02.369
+  15. Esteban Ocon (Alpine) - RETIRADO (Trompo)
+  16. George Russell (Mercedes-AMG Petronas) - RETIRADO (Fallo mecánico)
+  17. Pierre Gasly (Alpine) - RETIRADO (Motor roto)
+  18. Lewis Hamilton (Mercedes-AMG Petronas) - RETIRADO (Accidente)
+  19. Carlos Sainz (Ferrari) - RETIRADO (Accidente)
+  20. Max Verstappen (Red Bull Racing) - RETIRADO (Fallo mecánico)
+------------------------------------------------------------------
+Carrera en Circuito de Mónaco - 50 Vueltas - Clima: Seco
+Reglajes de Max Verstappen: Aero=Alta, Neum=Alta, Conduccion=Agresiva, Combustible=Agresiva
+Resultados Finales:
+  1. Charles Leclerc (Ferrari) - 59:09.944
+  2. Lewis Hamilton (Mercedes-AMG Petronas) - 59:11.841
+  3. Lando Norris (McLaren) - 59:18.173
+  4. Sergio Pérez (Red Bull Racing) - 59:21.023
+  5. Fernando Alonso (Aston Martin) - 59:22.560
+  6. Carlos Sainz (Ferrari) - 59:27.420
+  7. Zhou Guanyu (Alfa Romeo) - 59:54.038
+  8. Valtteri Bottas (Alfa Romeo) - 59:55.841
+  9. Daniel Ricciardo (AlphaTauri) - 59:57.434
+  10. Yuki Tsunoda (AlphaTauri) - 60:00.143
+  11. Logan Sargeant (Williams) - 60:02.004
+  12. Alexander Albon (Williams) - RETIRADO (Motor roto)
+  13. Oscar Piastri (McLaren) - RETIRADO (Motor roto)
+  14. Lance Stroll (Aston Martin) - RETIRADO (Pinchazo)
+  15. George Russell (Mercedes-AMG Petronas) - RETIRADO (Motor roto)
+  16. Esteban Ocon (Alpine) - RETIRADO (Trompo)
+  17. Pierre Gasly (Alpine) - RETIRADO (Fallo mecánico)
+  18. Max Verstappen (Red Bull Racing) - RETIRADO (Trompo)
+  19. Kevin Magnussen (Haas) - RETIRADO (Trompo)
+  20. Nico Hülkenberg (Haas) - RETIRADO (Pinchazo)
+------------------------------------------------------------------
