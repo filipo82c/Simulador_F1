@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         // Configuracion basica
-        setTitle("F1 Simulación");
+        setTitle("Simulador F1");
         setSize(1150, 680);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -79,9 +79,9 @@ public class MainFrame extends JFrame {
         sidebarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(39, 39, 42)));
 
         // Logo de F1 estilizado en texto
-        JLabel logoLabel = new JLabel("F1 SIM");
+        JLabel logoLabel = new JLabel("SIMULADOR F1");
         logoLabel.setForeground(redF1);
-        logoLabel.setFont(new Font("Outfit", Font.BOLD, 28));
+        logoLabel.setFont(new Font("Outfit", Font.BOLD, 22));
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         logoLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 40, 0));
         sidebarPanel.add(logoLabel);
